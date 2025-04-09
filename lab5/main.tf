@@ -230,6 +230,6 @@ output "alb_dns_name" {
 }
 
 output "tomcat_url" {
-  value       = "https://tomcat.olegivanuik.pp.ua" # Replace with your actual domain
+  value       = "http://tomcat.olegivanuik.pp.ua" # Replace with your actual domain
   description = "The URL to access the Tomcat application"
 }
