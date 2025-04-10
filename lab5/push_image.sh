@@ -18,16 +18,19 @@ echo "ECR репозиторій URI: ${ECR_REPO_URI}"
 echo "Авторизація в ECR..."
 aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO_URI}
 
-# Завантаження образу Tomcat з Docker Hub
-echo "Завантаження образу tomcat:9.0-jre11 з Docker Hub..."
-docker pull tomcat:9.0-jre11
+# Перехід до директорії, де знаходиться Dockerfile
+cd "$(dirname "$0")"
+
+# Збірка Docker образу з Dockerfile
+echo "Збірка Docker образу з Dockerfile..."
+docker build -t tomcat-custom .
 
 # Перейменування образу для ECR
 echo "Перейменування образу для ECR..."
-docker tag tomcat:9.0-jre11 ${ECR_REPO_URI}:latest
+docker tag tomcat-custom ${ECR_REPO_URI}:latest
 
 # Завантаження образу в ECR
 echo "Завантаження образу в ECR..."
 docker push ${ECR_REPO_URI}:latest
 
-echo "Готово! Образ tomcat:9.0-jre11 успішно завантажено в ECR репозиторій ${ECR_REPO_NAME}" 
+echo "Готово! Власний образ Tomcat успішно збудовано та завантажено в ECR репозиторій ${ECR_REPO_NAME}" 
