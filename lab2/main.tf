@@ -184,3 +184,13 @@ resource "aws_route53_record" "a_record" {
     evaluate_target_health = true
   }
 }
+
+terraform {
+  backend "s3" {
+    bucket         = "terraform-state-olegivanuik-labs-2025"
+    key            = "lab2/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-lock"
+  }
+}

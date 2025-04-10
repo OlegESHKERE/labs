@@ -87,3 +87,13 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
   ok_actions    = [aws_sns_topic.cpu_alarm_topic.arn]
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "terraform-state-olegivanuik-labs-2025"
+    key            = "lab3/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-lock"
+  }
+}
+

@@ -1,3 +1,13 @@
+terraform {
+  backend "s3" {
+    bucket         = "terraform-state-olegivanuik-labs-2025"
+    key            = "lab5/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-lock"
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
 }
